@@ -22,25 +22,6 @@ public class GenDunExp {
 			scan = new Scanner(System.in);
 			res = new Random();
 			
-			System.out.println("Test");
-			User player = new User("TU");
-			PlayerUnit asdf = new PlayerUnit("T", "Swordsman", 1, player);
-			asdf.printAttributes();
-			asdf.updateRes(-50, -50, -50, 1);
-			asdf.printAttributes();
-			player.augmentMoney(1000);
-			/**
-			System.out.println(asdf.physicalBaseDmg());
-			System.out.println("-----");
-			Equipment s = new Equipment('u', 1, 'e', 1234);
-			asdf.equip('e', s);
-			asdf.printAttributes();
-			System.out.println(asdf.physicalBaseDmg());
-			System.out.println("AAAAAAAAAAAAAAAAAAAA");
-			*/
-
-			
-			/**
 			//new player, create a party
 			System.out.println("Please input a player name");
 			User player = new User(scan.nextLine());
@@ -63,43 +44,6 @@ public class GenDunExp {
 				PlayerUnit u = new PlayerUnit(n, c, 1, player);
 				charsleft --;
 			}
-			*/
-
-			
-			/**
-			PlayerUnit u1 = new PlayerUnit("Ted", "Warrior", 1, player);
-			PlayerUnit u2 = new PlayerUnit("Adam", "Swordsman", 1, player);
-			PlayerUnit u3 = new PlayerUnit("Marc", "Monk", 1, player);
-			PlayerUnit u4 = new PlayerUnit("Aira", "Priest", 1, player);
-			 */
-			System.out.println();
-			
-			/*
-			//testing some equipment stuff
-			Equipment asdf = new Equipment(1, 0, 1);
-			System.out.println(asdf);
-			player.putInStorage(asdf);
-			asdf = new Equipment('c', 1, 'h', 0);
-			System.out.println(asdf);
-			player.putInStorage(asdf);
-			asdf = new Equipment(1, 0, 1);
-			System.out.println(asdf);
-			player.putInStorage(asdf);
-			*/
-			
-			/*
-			//testing sorting units by priority
-			System.out.println(u1.getPriority());
-			System.out.println(u2.getPriority());
-			System.out.println(u3.getPriority());
-			
-			ArrayList<Unit> k = new ArrayList<Unit>();
-			k.add(u1);
-			k.add(u2);
-			k.add(u3);
-			Collections.sort(k);
-			System.out.println(k);
-			*/
 			
 			playerParty = new PlayerUnit[9];
 			enemyParty = new EnemyUnit[9];
@@ -155,19 +99,18 @@ public class GenDunExp {
 
 					//run combat until one party is defeated
 					while(partyAlive(playerParty) && partyAlive(enemyParty)) {
+						//print state of current combat
+						System.out.println("\n\n\n");
+						printBattleState();
 						//start new turn if needed; add all alive characters to order, print out status of all units
 						if (order.isEmpty()) {
-							System.out.println("#####");
 							for (int i = 0; i < playerParty.length; i ++) {
 								if (playerParty[i] != null) {
-									playerParty[i].printStatus();
 									order.add(playerParty[i]);
 								}
 							}
-							System.out.println("@@@@@");
 							for (int i = 0; i < enemyParty.length; i ++) {
 								if (enemyParty[i] != null) {
-									enemyParty[i].printStatus();
 									order.add(enemyParty[i]);
 								}
 							}
@@ -357,6 +300,21 @@ public class GenDunExp {
 			}
 		}
 		return false;
+	}
+	
+	public static void printBattleState() {
+		System.out.println("-----Friendly Party-----");
+		for (int i = 0; i < playerParty.length; i ++) {
+			if (playerParty[i] != null) {
+				playerParty[i].printStatus();
+			}
+		}
+		System.out.println("-----Enemy Party-----");
+		for (int i = 0; i < enemyParty.length; i ++) {
+			if (enemyParty[i] != null) {
+				enemyParty[i].printStatus();
+			}
+		}
 	}
 	
 	//checks user input against valid inputs vis (string of valid 1 char inputs), output error messaage em if em is not ""
